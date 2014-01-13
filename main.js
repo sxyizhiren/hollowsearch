@@ -3,6 +3,8 @@
  */
 
 var pubfun = require('./publicfn');
+pubfun.openDebug();//放到尽量前面
+
 var assert = require('assert');
 var CollectorMIMI =  require('./collector/appmimi').Collector;
 var CollectorBDJ =  require('./collector/appbudejie').Collector;
@@ -10,12 +12,10 @@ var GoodGuy = require('./collector/guy').GoodGuy;
 var hashstorer = require('./store/store').hashstorer;
 
 
-pubfun.openDebug();
-
 var goodguy = new GoodGuy();
+goodguy.collect();
 
-
-
+/*
 //500 page
 //test appmimi
 var collor1 = new CollectorMIMI();
@@ -60,7 +60,7 @@ collor2.baseDump(function(err,info){
     assert(minid <= conf.maxid);
   });
 });
-
+*/
 
 //test store
 hashstorer.set('key1',{"a":123},function(err,reply){

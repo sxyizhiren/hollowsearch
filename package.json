@@ -1,0 +1,27 @@
+{
+  "name": "hollowsearch",
+  "version": "0.0.1",
+  "description": "secret search.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sxyizhiren/hollowsearch.git"
+  },
+  "keywords": [
+    "search",
+    "secret"
+  ],
+  "author": "yizhiren",
+  "readmeFilename": "README.md",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "easyspider": "~0.0.4",
+    "cn-search": "~0.2.5",
+    "async": "~0.2.9",
+    "redis": "~0.10.0"
+  }
+}

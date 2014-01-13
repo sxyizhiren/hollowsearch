@@ -52,6 +52,7 @@ var readjsonsync = function(fullpath){
   return JSON.parse(fs.readFileSync(fullpath));
 }
 
+
 var openDebug=function(){
   process.env.mode = 'DEBUG';
 }
@@ -68,5 +69,7 @@ exports.readjsonsync = readjsonsync;
 exports.openDebug = openDebug;
 exports.isDebug = isDebug;
 exports.createRedisClient = createRedisClient;
+
+
 
 

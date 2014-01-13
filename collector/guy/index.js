@@ -1,0 +1,113 @@
+var pubfunc = require('../../publicfn');
+var assert = require('assert');
+var async = require('async');
+var notify = require('../../notify');
+
+if(pubfunc.isDebug()){
+  process.env.FIRSTDUMP = 1;
+  var search = require('cn-search').createSearch('unknown');
+  var hashstorer = require('./store/store').hashstorer;
+}else{
+  var search = require('cn-search').createSearch('secret');
+  var hashstorer = new (require('./store/store').HashStorer)('collection');
+}
+
+function noop(){}
+
+var ColloectorGuy = function(){
+  var confFile=__dirname+'/conf.json';
+  var conf = pubfunc.readjsonsync(confFile);
+
+  assert.equal(conf.whoami,'GoodGuy');
+
+  var basepath='../';  //collector们的目录
+  var collectorArray =[];
+  for(var i= 0,len=conf.collectors.length;i<len;i++){
+    var coll = {
+      keystr:conf.collectors[i],
+      coll:new (require(basepath+conf.collectors[i]).Collector)
+    };
+    collectorArray.push(coll);
+  }
+
+  var fails=[];
+  var completefails=function(){
+    if(fails.length > 0){
+      var data = fails.shift();
+      storeNodes(data.key,data.node);
+      notify.info(null,'fails.store',data);
+    }
+    setTimeout(completefails,5000);
+  }
+  //轮训失败的操作
+  completefails();
+
+  //存储以及加入索引，callbackfn永远返回成功，有失败的话是放入失败队列处理的
+  //callbackfn只有一种结果就是callbackfn(null);
+  var storeNodes = function(keystr,nodes,callbackfn){
+    //async.eachSeries只返回err 或者null，不会返回每一个函数的回调结果
+    async.eachSeries(nodes,function(node,callbackEachSeries){
+      var key = keystr + node;  //合并字符串
+      async.series([
+        function(callback){
+          hashstorer.set(key,nodes[node],callback);
+        },
+        function(callback){
+          search.index(nodes[node].text,key,callback);
+        }
+      ],function(err){
+        if(err){
+          //set和index其中一个失败就会进这里，这种逻辑正好符合
+          var faildata={'keystr':keystr,'node':{}};
+          faildata.node[node]=nodes[node];
+          //放入失败队列去处理
+          fails.push(faildata);
+        }
+        callbackEachSeries(null);//对外永不报错
+      });
+    },callbackfn);//迭代函数永不报错，这里callbackfn传出去的必然是null，也不报错
+
+  }
+
+  //callbackfn只有一种结果就是callbackfn(null);
+  var baseDumpAll = function(callbackfn){
+    //这里的callback由async.series传入
+    for(var i= 0,len=collectorArray.length;i<len;i++){
+      var theColl = collectorArray[i];
+      theColl.coll.baseDump(function(err,info){
+        assert.equal(null,err);
+        storeNodes(theColl.keystr,info,callbackfn); //函数永不报错，这里的callback传出去也必然不报错
+
+      });
+    }
+  }
+
+  //callbackfn只有一种结果就是callbackfn(null);
+  var increDumpAll = function(callbackfn){
+    //这里的callback由async.series传入
+    for(var i= 0,len=collectorArray.length;i<len;i++){
+      collectorArray[i].increDump(function(err,info){
+        assert.equal(null,err);
+        storeNodes(theColl.keystr,info,callbackfn);//函数永不报错，这里的callback传出去也必然不报错
+      });
+    }
+
+    //定时执行
+    setTimeout(increDumpAll,20*1000,noop);
+  }
+
+  this.collect = function(){
+    if(process.env.FIRSTDUMP == 1){
+      //dump函数设计成了永不报错，所以不用关心callback返回结果,传入noop即可
+      async.series([baseDumpAll,increDumpAll],noop);
+      //async.series会给最后的函数传回每个函数回调出来的第二个参数，组成一个数组(err,[first,second,...])
+      //noop这里只有一种结果noop(null,[undefined,undefined])
+    }else{
+      increDumpAll(noop);
+    }
+  }
+
+}
+
+exports.GoodGuy = ColloectorGuy;
+

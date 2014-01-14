@@ -140,7 +140,11 @@ a:hover, a:active{
 	background:#ccc;
 	display:block;
 }
-
+.grid #bdshare{
+    width:224px;
+    border-top:1px solid lightgray;
+    float:left;
+}
 #ad-holder{
 	position:absolute;
 	top:60px;

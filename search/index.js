@@ -23,8 +23,9 @@ var query = function(queryinfo,callbackfn){
   var pagenum = queryinfo.pagenum || 0;
   assert(pagenum >= 0);
   //每页几条
-  var numperpage = queryinfo.numperpage || 50;
+  var numperpage = queryinfo.numperpage || 30;
   assert(numperpage > 0);
+  if(numperpage > 80){numperpage = 80;}
 
   var maxlength = 20;
   if(querystring.length > maxlength){

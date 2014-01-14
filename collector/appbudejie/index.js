@@ -31,7 +31,6 @@ function BuDeJie(){
 
     spider.route(pageurl,{json:true},function(error, json){
       if(error){
-        failpage.push(idx);
         console.error(error);
         //重做
         getpageIcontent(idx,callback);

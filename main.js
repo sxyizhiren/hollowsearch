@@ -3,7 +3,10 @@
  */
 
 var pubfun = require('./publicfn');
+//////DEBUG 标记
 pubfun.openDebug();//放到尽量前面
+process.env.FIRSTDUMP = 1;
+//////////////
 
 var assert = require('assert');
 var CollectorMIMI =  require('./collector/appmimi').Collector;
@@ -76,3 +79,7 @@ hashstorer.set('key1',{"a":123},function(err,reply){
     assert.equal(reply.a,123);
   });
 });
+
+
+
+

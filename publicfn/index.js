@@ -1,4 +1,6 @@
-var fs=require('fs');
+//这里不要去试图引用httpserver因为httpserver下的文件也会引用这里，循环引用了。
+
+var fs = require('fs');
 
 var redis=require('redis');
 var redisclient;
@@ -69,6 +71,7 @@ exports.readjsonsync = readjsonsync;
 exports.openDebug = openDebug;
 exports.isDebug = isDebug;
 exports.createRedisClient = createRedisClient;
+
 
 
 

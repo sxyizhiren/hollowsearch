@@ -46,14 +46,14 @@ var ColloectorGuy = function(){
   //存储以及加入索引，callbackfn永远返回成功，有失败的话是放入失败队列处理的
   //callbackfn只有一种结果就是callbackfn(null,[.,.,.,.,.,.,....]);
   var storeNodes = function(keystr,nodes,callbackfn){
-    //async.mapSeries会把每个的回调结果作为数组传给最终的回调函数
+    //async.eachSeries只传null或者err，不传结果集合
     async.eachSeries(Object.keys(nodes),function(node,callbackEachSeries){
-      console.log('node:'+node);
       var key = keystr + node;  //合并字符串
-      console.log('key:'+key);
-      console.log(nodes[node]);
+      //series包含结果结合，这里不需要这个结合，忽略即可
       async.series([
         function(callback){
+          console.log(nodes[node]);
+          nodes[node].key = key;
           hashstorer.set(key,nodes[node],callback);
         },
         function(callback){
@@ -80,7 +80,6 @@ var ColloectorGuy = function(){
     async.each(collectorArray,function(theColl,callbackEach){
       theColl.coll.baseDump(function(err,info){
         assert.equal(null,err);
-        console.log('base start store');
         storeNodes(theColl.keystr,info,callbackEach); //函数永不报错，这里的callback传出去也必然不报错
 
       });
@@ -94,7 +93,6 @@ var ColloectorGuy = function(){
     async.each(collectorArray,function(theColl,callbackEach){
       theColl.coll.increDump(function(err,info){
         assert.equal(null,err);
-        console.log('incre start store');
         storeNodes(theColl.keystr,info,callbackEach); //函数永不报错，这里的callback传出去也必然不报错
 
       });
@@ -105,9 +103,8 @@ var ColloectorGuy = function(){
   }
 
   this.collect = function(){
-    if((process.env.FIRSTDUMP == 1) || pubfunc.isDebug()){
+    if(process.env.FIRSTDUMP == 1){
       //dump函数设计成了永不报错，所以不用关心callback返回结果,传入noop即可
-      //baseDumpAll(noop);
       async.series([baseDumpAll,increDumpAll],noop);
       //async.series会给最后的函数传回每个函数回调出来的第二个参数，组成一个数组(err,[first,second,...])
       //noop这里只有一种结果noop(null,[undefined,undefined])

@@ -70,7 +70,6 @@ function MIMI(){
 
     spider.route(pageurl,{json:true,headers:customHeaders},function(error, json){
       if(error){
-        failpage.push(idx);
         console.error(error);
         //重做
         getpageIcontent(idx,callback);

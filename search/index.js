@@ -40,8 +40,8 @@ var query = function(queryinfo,callbackfn){
       console.log(querystring);
       //先走缓存
       var cacheData = cache.get(querystring);
-      if(cacheData){
-        //cache命中
+      if(cacheData && cacheData.length > 5){
+        //cache命中,且内容大于5条（少于5条就重新查一遍）
         callback(null,cacheData);
       }else{
         //走redis搜索

@@ -83,6 +83,12 @@ a:hover, a:active{
 #wrapper hgroup{
 	text-align:center;
 }
+#wrapper hgroup span{
+    margin:5px;
+}
+.handcursor{
+    cursor: pointer;
+}
 #wrapper h2{
 	margin:5px 0;
 	color:#FF6D99;
@@ -197,4 +203,7 @@ a:hover, a:active{
     clear: both;
     display: inline;
     margin:auto;
+}
+.search_box{
+   width:200px;
 }

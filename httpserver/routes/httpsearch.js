@@ -13,7 +13,7 @@ exports.query = function(req, res){
   //console.log(iQuery);
   searcher.query(iQuery,function(err,texts){
     var ret = {err:err,res:texts};
-    res.send(ret);
+    res.send(ret);//json形式，供ajax调用
     //res.render('listSecret', { title: '搜索结果' ,texts:texts ,iQuery:iQuery});
   });
 

@@ -54,9 +54,12 @@ var ColloectorGuy = function(){
         function(callback){
           console.log(nodes[node]);
           nodes[node].key = key;
+          //存的时候会序列化
           hashstorer.set(key,nodes[node],callback);
         },
         function(callback){
+          //让所有的node都能被pubfunc.initQueryWords这个关键字搜索到
+          nodes[node].text=pubfunc.initQueryWords + '.' + nodes[node].text;
           search.index(nodes[node].text,key,callback);
         }
       ],function(err){

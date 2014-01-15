@@ -63,6 +63,34 @@ var isDebug=function(){
   return process.env.mode === 'DEBUG';
 }
 
+var fixSearchString=function(str){
+  if(typeof str != 'string'){
+    str='';
+  }
+  //去首位空格，替换单双引号
+  str=str.trim().replace(/'/g,'|').replace(/"/g,'|');
+  if(str.length > 20){
+    str=str.substr(0,20);
+  }
+  return str;
+}
+
+var fixSearchPage=function(num){
+  if(isNaN(num) || num < 0){
+    num=0;
+  }
+  return parseInt(num);
+}
+
+var fixSearchPer=function(num){
+  if(isNaN(num) || num < 0){
+    num=20;
+  }else if(num > 60){
+    num=60;
+  }
+  return parseInt(num);
+}
+
 exports.getSortedNumberArray = getSortedNumberArray;
 exports.mergeObj = mergeObj;
 exports.decodeBase64 = decodeBase64;
@@ -71,6 +99,11 @@ exports.readjsonsync = readjsonsync;
 exports.openDebug = openDebug;
 exports.isDebug = isDebug;
 exports.createRedisClient = createRedisClient;
+exports.fixSearchString = fixSearchString;
+exports.fixSearchPage=fixSearchPage;
+exports.fixSearchPer=fixSearchPer;
+exports.initQueryWords='最新';
+
 
 
 

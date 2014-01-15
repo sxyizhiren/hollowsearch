@@ -1,19 +1,20 @@
 var searcher = require('../../search');
+var pubfunc = require('../../publicfn');
 
 exports.query = function(req, res){
   var params = req.params;console.log(params);
-  var words = params.query;
-  var page = params.page; if(page < 0){page = 0;} //0表示第一页
-  var per = params.per; if(per < 0){per = 0;} //将采用默认值
 
   var iQuery={
-    words:words,
-    pagenum:page,
-    numperpage:per
+    words:pubfunc.fixSearchString(params.query),//引号替换，长度限制
+    page:pubfunc.fixSearchPage(params.page),
+    per:pubfunc.fixSearchPer(params.per)
   };
-  //res.send(iQuery);
+
+  //console.log(iQuery);
   searcher.query(iQuery,function(err,texts){
-    res.render('listSecret', { title: '搜索结果' ,texts:texts});
+    var ret = {err:err,res:texts};
+    res.send(ret);
+    //res.render('listSecret', { title: '搜索结果' ,texts:texts ,iQuery:iQuery});
   });
 
 };

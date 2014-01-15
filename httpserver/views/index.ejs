@@ -1,11 +1,109 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/blocksit.min.js"></script>
+    <script type="text/javascript">
+        var iquery = {words:'<%= initQuery %>',page:0,per:10};
+        function createsharenode(url,title,pic,desc){var div=$('<div id="bdshare" class="bdshare_t bds_tools_24 get-codes-bdshare"></div>');div.attr('data',JSON.stringify({'text':title,'title':title,'pic':pic,'url':url,'desc':desc}));$('<a class="bds_tsina"></a>').appendTo(div);$('<a class="bds_tqq"></a>').appendTo(div);$('<a class="bds_qzone"></a>').appendTo(div);$('<a class="bds_douban"></a>').appendTo(div);$('<a class="bds_renren"></a>').appendTo(div);$('<span class="bds_more">更多</span>').appendTo(div);return div;}
+        /*$('<a class="shareCount"></a>').appendTo(div);*/
+
+        function creategrid(lists){
+            for(var i= 0,len=lists.length;i<len;i++){
+                var node=lists[i];
+                if($('#'+node.key).length>0){
+                    //已经存在该id的内容了,不回重复加载
+                    continue;
+                }
+                var jQgrid=$('<div class="grid"></div>');
+                jQgrid.attr('id',node.key);
+                var jQtext=$('<div class="text"></div>');
+                jQtext.text(node.text);
+                var jQshare=createsharenode('http://127.0.0.1:3000/detail/'+node.key,'share Title','http://127.0.0.1:3000/pic/'+node.key,node.text.substr(0,100)/*太长分享时会出错*/);
+                jQtext.appendTo(jQgrid);
+                jQshare.appendTo(jQgrid);
+                jQgrid.appendTo($('#container'));
+            }
+        }
+        var currentWidth=1100;var eachcolWidth=280;var isLoading=false;
+        function relist(){$("#container").BlocksIt('reload');var winWidth=$(window).width();var conWidth;if(winWidth<770){col=2}else if(winWidth<1100){col=3}else if(winWidth<1400){col=4;}else{col=5;}conWidth=col * eachcolWidth;if(conWidth!=currentWidth){currentWidth=conWidth;$('#container').width(conWidth);$('#container').BlocksIt({numOfCol:col,offsetX:8,offsetY:8});}};
+
+        $(document).ready(function(){
+            loadquery();
+            $(window).resize(relist);
+            $(window).scroll(function(){console.log($(document).scrollTop(),$(window).height(),$(document).height());if($(document).scrollTop()+$(window).height() + 10/*提早n个像素触发*/ >= $(document).height()){console.log('loading...');loadquery();/*$("#container").BlocksIt('reload');*/}});
+        });
+
+        function loadquery(){
+            var xhrurl='/search/'+iquery.words+'/page/'+iquery.page+'/per/'+iquery.per;
+            console.log(xhrurl);
+            if(isLoading){
+                console.log('already loading!');
+                return;
+            }else{
+                isLoading = true;
+            }
+            $.ajax({
+                url: xhrurl,
+                dataType: "json",
+                success: function( data ) {
+                    if(data.err){
+                        alert(data.err);
+                    }else{
+                        creategrid(data.res);
+                        relist();
+                        iquery.page++;
+                    }
+                    console.log(data);
+                    isLoading = false;
+                },
+                error: function () {
+                    alert('出错了');
+                    isLoading = false;
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body class="metro">
+<header id="header">
+    <h1>Secret | 秘密，你敢看完吗，你的三观还完整吗？</h1>
+    <div id="backlinks">
+        <a href="#">返回搜索页 &raquo;</a>
+        <a href="#">这里加点什么呢？&raquo;</a>
+    </div>
+    <div class="clearfix"></div>
+</header>
+
+<section id="wrapper">
+    <hgroup>
+        <h2>客官里边请</h2>
+        <h3>客官请慢用</h3>
+    </hgroup>
+    <div id="container">
+
+    </div>
+    <hgroup><h4 class="aligncenter">正在努力加载...</h4></hgroup><br /><br />
+    <div class="clearfix"></div>
+</section>
+
+<footer id="footer">
+    <span>客观不可以 &copy; 2014 <a href="http://www.baidu.com">xxx.com</a>. Design by <a href="https://www.github.com/sxyizhiren">sxyizhiren</a>. Powered by blocksit-js + Node.js</span>
+</footer>
+
+<script type="text/javascript" id="bdshare_js" data="type=tools&mini=1&diy=what" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    var bds_config = {};
+    document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+
+</script>
+
+</body>
 </html>
+
+

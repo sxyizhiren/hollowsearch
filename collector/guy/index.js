@@ -46,8 +46,10 @@ var ColloectorGuy = function(){
   //存储以及加入索引，callbackfn永远返回成功，有失败的话是放入失败队列处理的
   //callbackfn只有一种结果就是callbackfn(null,[.,.,.,.,.,.,....]);
   var storeNodes = function(keystr,nodes,callbackfn){
-    //async.eachSeries只传null或者err，不传结果集合
-    async.eachSeries(Object.keys(nodes),function(node,callbackEachSeries){
+    var objkeys = Object.keys(nodes);
+    console.log('storeNodes.'+keystr+'.length='+objkeys.length);
+    //async.eachSeries只传回null或者err，不传回结果集合
+    async.eachSeries(objkeys,function(node,callbackEachSeries){
       var key = keystr + node;  //合并字符串
       //series包含结果结合，这里不需要这个结合，忽略即可
       async.series([

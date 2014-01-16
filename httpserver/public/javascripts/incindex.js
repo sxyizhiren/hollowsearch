@@ -24,7 +24,7 @@ function creategrid(lists){
     jQtag.appendTo(jQtagdiv);
     jQtagdiv.appendTo(jQgrid);
 
-    var jQshare=createsharenode(siteurl+'/detail/'+node.key,'客官来这里|你室友知道吗',siteurl+'/images/logo',node.text.substr(0,100)+'[客官不可以]'/*太长分享时会出错*/);
+    var jQshare=createsharenode(siteurl+'/detail/'+node.key,'客官来这里|你室友知道吗',siteurl+'/images/logo.png',node.text.substr(0,100)+'[客官不可以]'/*太长分享时会出错*/);
     jQshare.appendTo(jQgrid);
     jQgrid.appendTo($('#container'));
   }

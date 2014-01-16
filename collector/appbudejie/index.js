@@ -83,7 +83,7 @@ function BuDeJie(){
         pubfunc.writejsonsync(__dirname+'/APPBDJ_basedump.json',resultObject);
         pubfunc.writejsonsync(confFile,conf);
       }
-      console.log('budejie minid='+conf.minid);
+      console.log('appbudejie.minid='+conf.minid);
 
       //对象回调出去
       callback(null,resultObject);

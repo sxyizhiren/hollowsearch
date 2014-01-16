@@ -59,6 +59,10 @@ var openDebug=function(){
   process.env.mode = 'DEBUG';
 }
 
+var closeDebug=function(){
+  process.env.mode = 'ONLINE';
+}
+
 var isDebug=function(){
   return process.env.mode === 'DEBUG';
 }
@@ -105,6 +109,7 @@ exports.decodeBase64 = decodeBase64;
 exports.writejsonsync = writejsonsync;
 exports.readjsonsync = readjsonsync;
 exports.openDebug = openDebug;
+exports.closeDebug = closeDebug;
 exports.isDebug = isDebug;
 exports.createRedisClient = createRedisClient;
 exports.fixSearchString = fixSearchString;

@@ -123,7 +123,7 @@ function MIMI(){
         pubfunc.writejsonsync(__dirname+'/APPMIMI_basedump.json',resultObject);
         pubfunc.writejsonsync(confFile,conf);
       }
-      console.log('mimi real minid='+conf.minid);
+      console.log('appmimi.minid='+conf.minid);
 
       //对象回调出去
       callback(null,resultObject);

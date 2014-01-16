@@ -1,97 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title><%= title %></title>
+<% include header.ejs%>
 
-    <link rel='stylesheet' href='/stylesheets/label.css' />
-    <link rel='stylesheet' href='/stylesheets/button.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="/javascripts/jquery.min.js"></script>
-    <script src="/javascripts/blocksit.min.js"></script>
-    <script type="text/javascript">
-        var iquery = {words:'<%= initQuery %>',page:0,per:10};
-        function createsharenode(url,title,pic,desc){var div=$('<div id="bdshare" class="bdshare_t bds_tools_24 get-codes-bdshare"></div>');div.attr('data',JSON.stringify({'text':title,'title':title,'pic':pic,'url':url,'desc':desc}));$('<a class="bds_tsina"></a>').appendTo(div);$('<a class="bds_tqq"></a>').appendTo(div);$('<a class="bds_qzone"></a>').appendTo(div);$('<a class="bds_douban"></a>').appendTo(div);$('<a class="bds_renren"></a>').appendTo(div);$('<span class="bds_more">更多</span>').appendTo(div);return div;}
-        /*$('<a class="shareCount"></a>').appendTo(div);*/
+<% include body.ejs %>
 
-        function creategrid(lists){
-            for(var i= 0,len=lists.length;i<len;i++){
-                var node=lists[i];
-                if($('#'+node.key).length>0){
-                    //已经存在该id的内容了,不回重复加载
-                    continue;
-                }
-                var jQgrid=$('<div class="grid"></div>');
-                jQgrid.attr('id',node.key);
-                var jQtext=$('<div class="text"></div>');
-                jQtext.text(node.text);
-                var jQshare=createsharenode('http://127.0.0.1:3000/detail/'+node.key,'share Title','http://127.0.0.1:3000/pic/'+node.key,node.text.substr(0,100)/*太长分享时会出错*/);
-                jQtext.appendTo(jQgrid);
-                jQshare.appendTo(jQgrid);
-                jQgrid.appendTo($('#container'));
-            }
-        }
-        var currentWidth=1100;var eachcolWidth=280;var isLoading=false;
-        function relist(){$("#container").BlocksIt('reload');var winWidth=$(window).width();var conWidth;if(winWidth<770){col=2}else if(winWidth<1100){col=3}else if(winWidth<1400){col=4;}else{col=5;}conWidth=col * eachcolWidth;if(conWidth!=currentWidth){currentWidth=conWidth;$('#container').width(conWidth);$('#container').BlocksIt({numOfCol:col,offsetX:8,offsetY:8});}};
-
-        function initAnimate(){$('#header').css({'top':-50}).delay(1000).animate({'top':0},800);$('#footer').css({'bottom':-15}).delay(1000).animate({'bottom':0},800);}
-
-        $(document).ready(function(){
-            initAnimate();
-            loadquery();
-            $(window).resize(relist);
-            $(window).scroll(function(){if($(document).scrollTop()+$(window).height() + 10/*提早n个像素触发*/ >= $(document).height()){console.log('loading...');loadquery();/*$("#container").BlocksIt('reload');*/}});
-        });
-
-        function loadquery(){var xhrurl='/search/'+iquery.words+'/page/'+iquery.page+'/per/'+iquery.per;console.log(xhrurl);if(isLoading){console.log('already loading!');return;}else{isLoading=true;$('#loading').text('正在努力加载...');}
-            $.ajax({url:xhrurl,dataType:"json",success:function(data){if(data.err){alert(data.err);}else if(data.res.length==0){$('#loading').text('没新的了，我先休息一下...');setTimeout(loadquery,10*1000);}else{creategrid(data.res);relist();iquery.page++;}
-                isLoading=false;},error:function(){alert('出错了');isLoading=false;}});}
-
-        function toTop(){/*$('body,html')？为什么*/$('html').animate({scrollTop:0},1000);}
-        function querywords(words){iquery.words=words;iquery.page=0;$("#container").html('');loadquery();}
-        function searchwords(){if($('#searchwrods').val().trim()==''){$('#searchwrods').attr('placeholder','客官还没点呢');return;}querywords($('#searchwrods').val());}
-    </script>
-
-</head>
-<body class="metro">
-<header id="header">
-    <h1>客官不行 | 你不能进来</h1>
-    <div id="backlinks">
-        <a href="javascript:toTop()">回到页面顶部 ^ </a>
-        <input type="text" name="keyword" value="" class="search_box" id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
-        <input type="button" value="搜索&raquo;" class="btn btn-primary"  onclick="searchwords()">
-    </div>
-    <div class="clearfix"></div>
-</header>
-
-<section id="wrapper">
-    <hgroup>
-        <span class="label label-success">热门标签:</span>
-        <span class="handcursor label label-warning">用代码</span>
-        <span class="handcursor label label-warning">自动生成</span>
-    </hgroup>
-    <hgroup>
-        <h2>既然客官坚持要来 | 就请慢用</h2>
-    </hgroup>
-    <div id="container">
-
-    </div>
-    <hgroup><h4 class="aligncenter" id="loading">正在努力加载...</h4></hgroup><br /><br />
-    <div class="clearfix"></div>
-</section>
-
-<footer id="footer">
-    <span>客观不可以 &copy; 2014 <a href="http://www.baidu.com">xxx.com</a>. Design by <a href="https://www.github.com/sxyizhiren">sxyizhiren</a>. Powered by blocksit-js + Node.js</span>
-</footer>
-
-<script type="text/javascript" id="bdshare_js" data="type=tools&mini=1&diy=what" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">
-    var bds_config = {};
-    document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
-
-</script>
-
-</body>
+<% include footer.ejs%>
 </html>
 
 

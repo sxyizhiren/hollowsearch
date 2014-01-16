@@ -91,6 +91,14 @@ var fixSearchPer=function(num){
   return parseInt(num);
 }
 
+var searchConf = {
+  fixScoreRange:true,
+  redisServer:{
+    port:6379,
+    host:'localhost'
+  }
+}
+
 exports.getSortedNumberArray = getSortedNumberArray;
 exports.mergeObj = mergeObj;
 exports.decodeBase64 = decodeBase64;
@@ -102,7 +110,10 @@ exports.createRedisClient = createRedisClient;
 exports.fixSearchString = fixSearchString;
 exports.fixSearchPage=fixSearchPage;
 exports.fixSearchPer=fixSearchPer;
-exports.initQueryWords='最新';
+exports.initQueryWords='随意';  //启动后就不能更换了
+exports.searchConf = searchConf;
+exports.siteurl='http://localhost';
+
 
 
 

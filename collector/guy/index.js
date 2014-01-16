@@ -5,10 +5,10 @@ var notify = require('../../notify');
 
 
 if(pubfunc.isDebug()){
-  var search = require('cn-search').createSearch('unknown');
+  var search = require('cn-search').createSearch('unknown',pubfunc.searchConf);
   var hashstorer = require('../../store/store').hashstorer;
 }else{
-  var search = require('cn-search').createSearch('secret');
+  var search = require('cn-search').createSearch('secret',pubfunc.searchConf);
   var hashstorer = new (require('../../store/store').HashStorer)('collection');
 }
 
@@ -52,7 +52,7 @@ var ColloectorGuy = function(){
       //series包含结果结合，这里不需要这个结合，忽略即可
       async.series([
         function(callback){
-          console.log(nodes[node]);
+          //console.log(nodes[node]);
           nodes[node].key = key;
           //存的时候会序列化
           hashstorer.set(key,nodes[node],callback);
@@ -64,6 +64,7 @@ var ColloectorGuy = function(){
         }
       ],function(err){
         if(err){
+          console.log(err);
           //set和index其中一个失败就会进这里，这种逻辑正好符合
           var faildata={'keystr':keystr,'node':{}};
           faildata.node[node]=nodes[node];

@@ -1,0 +1,34 @@
+<head>
+    <title><%= title %></title>
+
+    <link rel='stylesheet' href='/stylesheets/label.css' />
+    <link rel='stylesheet' href='/stylesheets/button.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/blocksit.min.js"></script>
+    <% include values.ejs%>
+    <script src="/javascripts/incindex.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            initAnimate();
+            if(iquery.firstquery){loadquery()}
+            else if(iquery.detail){initdetail();}
+            $(window).resize(relist);
+            $(window).scroll(onscroll);
+        });
+    </script>
+
+
+<header id="header">
+    <img src="/images/logo.png" />
+    <h1>客官不行 | 你不能进来</h1>
+    <div id="backlinks">
+        <a href="javascript:toTop()">回到页面顶部 ^ </a>
+        <input type="text" name="keyword" value="" class="search_box" id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
+        <input type="button" value="搜索&raquo;" class="btn btn-primary"  onclick="searchwords()">
+    </div>
+    <div class="clearfix"></div>
+</header>
+
+</head>
+

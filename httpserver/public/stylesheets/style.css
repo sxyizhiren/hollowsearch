@@ -31,6 +31,9 @@ a:hover, a:active{
 	left:0;
 	z-index:99;
 }
+#header img{
+    float:left;
+}
 #header h1{
 	padding:0 20px;
 	margin:5px 0;
@@ -83,7 +86,10 @@ a:hover, a:active{
 #wrapper hgroup{
 	text-align:center;
 }
-#wrapper hgroup span{
+.margin5{
+    margin:5px;
+}
+.margin3{
     margin:5px;
 }
 .handcursor{
@@ -116,9 +122,14 @@ a:hover, a:active{
 	padding-bottom: 10px;
 	
 }
+.gridInner{
+    width:228px;
+    padding-top: 4px;
+    margin-top: 2px ;
+}
 .grid{
-	width:250px;
-	min-height:100px;
+    width:250px;
+	min-height:50px;
 	padding: 15px;
 	background:#fff;
 	margin:8px;
@@ -151,8 +162,13 @@ a:hover, a:active{
 	background:#ccc;
 	display:block;
 }
+.grid .tag{
+    height:20px;
+    border-top:1px solid lightgray;
+    float:left;
+}
 .grid #bdshare{
-    width:224px;height:20px;
+    height:20px;
     border-top:1px solid lightgray;
     float:left;
 }

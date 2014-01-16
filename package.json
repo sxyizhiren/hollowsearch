@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "easyspider": "~0.0.4",
-    "cn-search": "~0.2.5",
+    "cn-search": "~0.2.6",
     "async": "~0.2.9",
     "redis": "~0.10.0"
   }

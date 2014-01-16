@@ -1,0 +1,37 @@
+<body>
+
+<section id="wrapper">
+    <hgroup>
+        <span class="label label-success">热门标签:</span>
+        <% for(var i= 0,len=hots.length;i<len;i++){ var hot = hots[i];%>
+        <span class="handcursor margin5 label label-warning" onclick="querywords('<%= hot%>')"><%= hot%></span>
+        <%}%>
+    </hgroup>
+    <hgroup>
+        <h2>客官你来这里 | 你室友知道吗</h2>
+    </hgroup>
+    <div id="container">
+<!-- Baidu Button BEGIN -->
+    <% if(iQuery.detail){ %>
+    <div id="bdshare" class="gridInner bdshare_t bds_tools_24 get-codes-bdshare" data="{
+        'text':'客官不可以',
+        'title':'客官不可以',
+        'pic':'<%= siteurl %>/images/logo.png',
+        'url':'<%= siteurl %>/detail/<%= iQuery.detail.key %>',
+        'desc':'<%= iQuery.detail.text %>[客官不可以]'
+        }">
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_qzone"></a>
+        <a class="bds_douban"></a>
+        <a class="bds_renren"></a>
+        <span class="bds_more">更多</span>
+    </div>
+    <% } %>
+<!-- Baidu Button END -->
+    </div>
+    <hgroup><h4 class="aligncenter" id="loading">正在努力加载...</h4></hgroup><br /><br />
+    <div class="clearfix"></div>
+</section>
+
+</body>

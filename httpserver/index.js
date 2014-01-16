@@ -29,6 +29,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/detail/:sid', routes.detail);
 app.get('/search/:query/page/:page/per/:per', httpsearch.query);
 
 var opensvr = function(){

@@ -1,4 +1,14 @@
 <body>
+<header id="header">
+    <img src="/images/logo.png" />
+    <h1>客官不行 | 你不能进来</h1>
+    <div id="backlinks">
+        <a href="javascript:toTop()">回到页面顶部 ^ </a>
+        <input type="text" name="keyword" value="" class="search_box" id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
+        <input type="button" value="搜索&raquo;" class="btn btn-primary"  onclick="searchwords()">
+    </div>
+    <div class="clearfix"></div>
+</header>
 
 <section id="wrapper">
     <hgroup>
@@ -34,4 +44,9 @@
     <div class="clearfix"></div>
 </section>
 
+<% include bdshare.ejs %>
+
+<footer id="footer">
+    <span>客观不可以 &copy; 2014 <a href="<%= siteurl%>"><%= siteurl%></a>. Design by <a href="https://www.github.com/sxyizhiren">sxyizhiren</a>. Powered by Node.js</span>
+</footer>
 </body>

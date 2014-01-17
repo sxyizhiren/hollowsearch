@@ -35,12 +35,12 @@ function initAnimate(){$('#header').css({'top':-50}).delay(1000).animate({'top':
 function initdetail(){$("#container").html('');creategrid([iquery.detail]);relist();$('#loading').text('');}
 //load new
 function loadquery(){
-  var xhrurl='/search/'+iquery.words+'/page/'+iquery.page+'/per/'+iquery.per;console.log(xhrurl);
+  var xhrurl='/search/'+encodeURIComponent(iquery.words)+'/page/'+iquery.page+'/per/'+iquery.per;console.log(xhrurl);
   if(isLoading){console.log('already loading!');return;}else{isLoading=true;$('#loading').text('正在努力加载...');}
   $.ajax({url:xhrurl,dataType:"json",success:function(data){if(data.err){alert(data.err);}else if(data.res.length==0){$('#loading').text('没新的了，我先休息一下...');setTimeout(loadquery,10*1000);}else{creategrid(data.res);relist();iquery.page++;}
     isLoading=false;},error:function(){alert('出错了');isLoading=false;}});}
 //scroll to top
-function toTop(){/*$('body,html')？为什么*/$('html').animate({scrollTop:0},1000);}
+function toTop(){/*$('body,html')？为什么*/$('body,html').animate({scrollTop:0},1000);}
 //load specified words
 function querywords(words){iquery.words=words;iquery.page=0;$("#container").html('');loadquery();}
 //on search button clicked

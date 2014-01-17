@@ -4,7 +4,12 @@
     <link rel='stylesheet' href='/stylesheets/label.css' />
     <link rel='stylesheet' href='/stylesheets/button.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="/javascripts/jquery.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="/javascripts/jquery1.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+    <script src="/javascripts/jquery2.min.js"></script>
+<!--<![endif]-->
     <script src="/javascripts/blocksit.min.js"></script>
     <% include values.ejs%>
     <script src="/javascripts/incindex.js"></script>

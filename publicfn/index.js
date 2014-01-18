@@ -117,8 +117,7 @@ exports.fixSearchPage=fixSearchPage;
 exports.fixSearchPer=fixSearchPer;
 exports.initQueryWords='随意';  //启动后就不能更换了
 exports.searchConf = searchConf;
-exports.siteurl='http://localhost';
-
+exports.siteurl='http://www.sirnot.com:88';
 
 
 

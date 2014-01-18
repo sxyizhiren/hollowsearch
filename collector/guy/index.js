@@ -5,10 +5,10 @@ var notify = require('../../notify');
 
 
 if(pubfunc.isDebug()){
-  var search = require('cn-search').createSearch('unknown',pubfunc.searchConf);
+  var search = require('../../store/store').searchstorer;
   var hashstorer = require('../../store/store').hashstorer;
 }else{
-  var search = require('cn-search').createSearch('secret',pubfunc.searchConf);
+  var search = new (require('../../store/store').SearchStorer)('secret');
   var hashstorer = new (require('../../store/store').HashStorer)('collection');
 }
 

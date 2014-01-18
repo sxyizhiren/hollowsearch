@@ -1,13 +1,24 @@
 <head>
     <title><%= title %></title>
 
-    <link rel='stylesheet' href='/stylesheets/label.css' />
-    <link rel='stylesheet' href='/stylesheets/button.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/button.css' />
+    <link rel='stylesheet' href='/stylesheets/label.css' />
+    <link rel='stylesheet' href='/stylesheets/alert.css' />
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="/javascripts/jquery.placeholder.js"></script>
+    <script type="text/javascript">window.console=window.console || {log:function(){}};$(document).ready(function(){$('input').placeholder();}) </script>
+    <![endif]-->
+
+    <!--[if lte IE 7]>
+    <script src="/javascripts/json2.js"></script>
+    <script type="text/javascript">alert('你还在使用IE6/7内核的浏览器，一点都不Fashion，你的小伙伴知道吗，赶快去更新吧，客官君已经不能再支持它们了.');</script>
     <![endif]-->
 
     <script src="/javascripts/blocksit.min.js"></script>

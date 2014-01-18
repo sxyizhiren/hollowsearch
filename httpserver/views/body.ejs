@@ -1,25 +1,29 @@
 <body>
 <header id="header">
     <img src="/images/logo.png" />
-    <h1>客官不行 | 你不能进来</h1>
-    <div id="backlinks">
-        <a href="javascript:toTop()">回到页面顶部 ^ </a>
-        <input type="text" name="keyword" value="" class="search_box" id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
-        <input type="button" value="搜索&raquo;" class="btn btn-primary"  onclick="searchwords()">
+    <h1>客官不可以&raquo;中国唯一的秘密搜索引擎&raquo;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+    <input type="text" name="keyword" value="" class="search_box" id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
+    <input type="button" value="搜索&raquo;" class="btn btn-primary btn-sm"  onclick="searchwords()">
+     <div id="backlinks">
+        <button class="btn btn-info" onclick="javascript:toTop()"> Top </button>
+
     </div>
     <div class="clearfix"></div>
 </header>
 
 <section id="wrapper">
+
+    <div class="alert alert-dismissable alert-info">
     <hgroup>
         <span class="label label-success">热门标签:</span>
         <% for(var i= 0,len=hots.length;i<len;i++){ var hot = hots[i];%>
         <span class="handcursor margin5 label label-warning" onclick="querywords('<%= hot%>')"><%= hot%></span>
         <%}%>
     </hgroup>
-    <hgroup>
-        <h2>客官你来这里 | 你室友知道吗</h2>
-    </hgroup>
+    </div>
+    <div class="alert alert-dismissable alert-danger">
+    <hgroup><h2>客官你来这里你室友知道吗</h2></hgroup>
+    </div>
     <div id="container">
 <!-- Baidu Button BEGIN -->
     <% if(iQuery.detail){ %>
@@ -47,6 +51,6 @@
 <% include bdshare.ejs %>
 
 <footer id="footer">
-    <span>客观不可以 &copy; 2014 <a href="<%= siteurl%>"><%= siteurl%></a>. Design by <a href="https://www.github.com/sxyizhiren">sxyizhiren</a>. Powered by Node.js</span>
+    <span>客观不可以 &copy; 2014 <a href="<%= siteurl%>">www.sirnot.com</a>. Design by yizhiren. Powered by Node.js</span>
 </footer>
 </body>

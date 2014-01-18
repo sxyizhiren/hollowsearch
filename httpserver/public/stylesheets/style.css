@@ -3,7 +3,7 @@ body{
 	padding:0;
 	background:url(/images/bg.gif) 0 0 repeat #f7f5f5;
 	color:#333;
-	font-family:Cambria, Georgia, serif;
+	font-family:Arial,Helvetica,sans-serif;;
 	font-size:15px;
 	overflow-x:hidden;
 }
@@ -21,9 +21,10 @@ a:hover, a:active{
 /* Header */
 #header{
 	width:100%;
+    min-width:1000px;
 	background:#000;
 	background:rgba(0, 0, 0, 0.8);
-	padding:5px 0;
+	padding:0px 0;
 	letter-spacing:1px;
 	margin-bottom:20px;
 	position:fixed;
@@ -34,22 +35,25 @@ a:hover, a:active{
 #header img{
     float:left;
 }
+#header input{
+    margin:10px 0;
+}
 #header h1{
-	padding:0 20px;
+	padding:12 20px;
 	margin:5px 0;
 	text-shadow:2px 1px 1px #333, 2px 2px 1px #888;
 	color:#EAEAEA;
 	float:left;
-	font-size:27px;
+	font-size:30px;
 }
 #backlinks{
 	float:right;
-	padding:0 20px;
+	padding:8px 10px;
 	line-height:22px;
 	font-weight:bold;
 	font-size:13px;
 }
-#backlinks a{
+#backlinks div{
 	text-align:right;
 	display:block;
 }
@@ -123,9 +127,8 @@ a:hover, a:active{
 	
 }
 .gridInner{
-    width:228px;
+    width:254px;
     padding-top: 4px;
-    margin-top: 2px ;
 }
 .grid{
     width:250px;
@@ -133,7 +136,7 @@ a:hover, a:active{
 	padding: 15px;
 	background:#fff;
 	margin:8px;
-	font-size:12px;
+	font-size:13px;
 	float:left;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
@@ -166,11 +169,13 @@ a:hover, a:active{
     height:20px;
     border-top:1px solid lightgray;
     float:left;
+    margin: 4px 0px;
 }
 .grid #bdshare{
     height:20px;
     border-top:1px solid lightgray;
     float:left;
+    margin: 6px 0px;
 }
 #ad-holder{
 	position:absolute;
@@ -221,5 +226,9 @@ a:hover, a:active{
     margin:auto;
 }
 .search_box{
-   width:200px;
+    padding: 6px 12px;
+    width:200px;
+    border: 3px solid #cccccc;
+    border-radius: 4px;
+    margin: 30px;
 }

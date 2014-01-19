@@ -2,13 +2,11 @@
 <header id="header">
     <img src="/images/logo.png" />
     <h1>客官不可以&raquo;中国唯一的秘密搜索引擎&raquo;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-    <input type="text" name="keyword" value="" class="search_box" id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
-    <input type="button" value="搜索&raquo;" class="btn btn-primary btn-sm"  onclick="searchwords()">
-     <div id="backlinks">
-        <button class="btn btn-info" onclick="javascript:toTop()"> Top </button>
-
+    <div class="alignright">
+    <input type="text" name="keyword" value="" class="search_box " id="searchwrods" placeholder="客官要点什么" onkeypress="if(event.keyCode==13) {searchwords();return false;}">
+    <button class="btn btn-primary "  onclick="searchwords()">搜索&raquo;</button>
+    <button class="btn btn-info " onclick="toTop()"> Top </button>
     </div>
-    <div class="clearfix"></div>
 </header>
 
 <section id="wrapper">

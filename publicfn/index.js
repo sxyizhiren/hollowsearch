@@ -5,6 +5,7 @@ var fs = require('fs');
 var redis=require('redis');
 var redisclient;
 
+function noop(){}
 
 var createRedisClient=function(){
   if(!redisclient){
@@ -40,6 +41,15 @@ var mergeObj=function(o1,o2){
 //decode base64
 var decodeBase64 = function(base64str){
   return (new Buffer(base64str,'base64').toString());
+}
+
+var writejson = function(fullpath,data,callback){
+  callback = callback || noop;
+  if(typeof data === 'object'){
+    fs.writeFile(fullpath,JSON.stringify(data,null,2),callback);
+  }else{
+    fs.writeFile(fullpath,data,callback);
+  }
 }
 
 var writejsonsync = function(fullpath,data){
@@ -106,6 +116,7 @@ var searchConf = {
 exports.getSortedNumberArray = getSortedNumberArray;
 exports.mergeObj = mergeObj;
 exports.decodeBase64 = decodeBase64;
+exports.writejson = writejson;
 exports.writejsonsync = writejsonsync;
 exports.readjsonsync = readjsonsync;
 exports.openDebug = openDebug;

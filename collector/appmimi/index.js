@@ -122,6 +122,7 @@ function MIMI(){
         //写入文件
         pubfunc.writejsonsync(__dirname+'/APPMIMI_basedump.json',resultObject);
         pubfunc.writejsonsync(confFile,conf);
+        pubfunc.writejsonsync(confFile+'.bak',conf);
       }
       console.log('appmimi.minid='+conf.minid);
 
@@ -160,6 +161,9 @@ function MIMI(){
           }
         }
         if(dumpok){
+          if(Object.keys(resultObject).length > 0){
+            pubfunc.writejson(confFile,conf);
+          }
           //incre dump complete,回调出去
           return callback(null,resultObject);
         }

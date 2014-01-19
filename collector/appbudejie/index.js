@@ -82,6 +82,7 @@ function BuDeJie(){
         //写入文件
         pubfunc.writejsonsync(__dirname+'/APPBDJ_basedump.json',resultObject);
         pubfunc.writejsonsync(confFile,conf);
+        pubfunc.writejsonsync(confFile+'.bak',conf);
       }
       console.log('appbudejie.minid='+conf.minid);
 
@@ -120,6 +121,9 @@ function BuDeJie(){
           }
         }
         if(dumpok){
+          if(Object.keys(resultObject).length > 0){
+            pubfunc.writejson(confFile,conf);
+          }
           //incre dump complete,回调出去
           return callback(null,resultObject);
         }

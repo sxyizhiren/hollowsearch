@@ -21,41 +21,34 @@ a:hover, a:active{
 /* Header */
 #header{
 	width:100%;
-    min-width:1000px;
 	background:#000;
 	background:rgba(0, 0, 0, 0.8);
-	padding:0px 0;
-	letter-spacing:1px;
-	margin-bottom:20px;
 	position:fixed;
-	top:0;
-	left:0;
+    padding: 0;
+    letter-spacing:1px;
+    margin-bottom:20px;
+    top:0;
+    left:0;
 	z-index:99;
 }
 #header img{
     float:left;
 }
 #header input{
-    margin:10px 0;
+    float: left;
+    margin:10px 2px;
+}
+#header button{
+    float:left;
+    margin:10px 2px;
 }
 #header h1{
-	padding:12 20px;
+	padding:0 20px;
 	margin:5px 0;
 	text-shadow:2px 1px 1px #333, 2px 2px 1px #888;
 	color:#EAEAEA;
 	float:left;
 	font-size:30px;
-}
-#backlinks{
-	float:right;
-	padding:8px 10px;
-	line-height:22px;
-	font-weight:bold;
-	font-size:13px;
-}
-#backlinks div{
-	text-align:right;
-	display:block;
 }
 
 /* Footer */

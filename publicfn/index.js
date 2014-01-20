@@ -19,11 +19,11 @@ var createRedisClient=function(){
 }
 
 //返回一个[1,2,3,4,5,6...]的数组，内容从1到length
-var getSortedNumberArray =function(length){
+var getSortedNumberArray =function(length,basenum){
   var arr=[];
   //1,2,3,4...
   for(var i=0;i<length;i++){
-    arr[i] = i+1;
+    arr[i] = i+(basenum || 0);
   }
   return arr;
 }

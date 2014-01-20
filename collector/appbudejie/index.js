@@ -69,7 +69,7 @@ function BuDeJie(){
     if(pubfunc.isDebug()){
       bigEnoughNumber = 20;
     }
-    var pagelist = pubfunc.getSortedNumberArray(bigEnoughNumber);
+    var pagelist = pubfunc.getSortedNumberArray(bigEnoughNumber,1);
     var resultObject={};
     async.mapLimit(pagelist,10,getpageIcontent,function(err,results){
       assert.equal(null,err);
@@ -80,7 +80,7 @@ function BuDeJie(){
 
       if(!pubfunc.isDebug()){
         //写入文件
-        pubfunc.writejsonsync(__dirname+'/APPBDJ_basedump.json',resultObject);
+        pubfunc.writejsonsync(__dirname+'/APP_basedump.json',resultObject);
         pubfunc.writejsonsync(confFile,conf);
         pubfunc.writejsonsync(confFile+'.bak',conf);
       }
@@ -95,7 +95,7 @@ function BuDeJie(){
 
   //增量抓取，与全量的差别是，这个是串行抓取。
   this.increDump=function(callback){
-    var idx=1;
+    var idx=1;//from 1
     var baseid = conf.maxid;
     if(pubfunc.isDebug()){
       //debug时，减小id，避免dump不到新的数据

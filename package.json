@@ -23,8 +23,9 @@
     "cn-search": "~0.2.6",
     "async": "~0.2.9",
     "redis": "~0.10.0",
-	"ejs":"~0.8.5",
-	"express":"~3.4.7",
-	"memory-cache":"~0.0.5"
+    "ejs":"~0.8.5",
+    "express":"~3.4.7",
+    "memory-cache":"~0.0.5",
+    "renrenlogin":"~0.0.4"
   }
 }

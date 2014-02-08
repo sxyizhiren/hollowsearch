@@ -1,7 +1,8 @@
 {
   "collectors":[
     "appmimi",
-    "appbudejie"
+    "appbudejie",
+    "apprenren"
   ],
   "whoami":"GoodGuy"
 

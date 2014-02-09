@@ -14,8 +14,34 @@ exports.query = function(req, res){
 
   //console.log(iQuery);
   searcher.query(iQuery,function(err,texts){
-    var ret = {err:err,res:texts};
-    res.send(ret);//json形式，供ajax调用
+    if(!err){
+      //文本太长就截断，但是不能改变texts原有的text内容，这个内容直接指向cache。所以新建一个数组
+      var cpTexts=[];
+      for(var i= 0,len=texts.length;i<len;i++){
+        var node=texts[i];
+        cpTexts[i]={};
+        cpTexts[i].id=node.id;
+        cpTexts[i].view=node.view;//没用到
+        cpTexts[i].pubtime=node.pubtime;
+        cpTexts[i].sex=node.sex;
+        cpTexts[i].key=node.key;
+        cpTexts[i].leftlen=0;
+        if(node.text.length > 350){
+          cpTexts[i].leftlen = node.text.length - 300;
+          cpTexts[i].text = node.text.substr(0,300);
+        }else{
+          cpTexts[i].leftlen = 0;
+          cpTexts[i].text=node.text;
+        }
+      }
+      var ret = {err:err,res:cpTexts};
+      console.log(cpTexts);
+      res.send(ret);//json形式，供ajax调用
+
+    }else{
+      var ret = {err:err};
+      res.send(ret);//json形式，供ajax调用
+    }
   });
 
 };

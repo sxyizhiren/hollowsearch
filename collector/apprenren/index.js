@@ -15,7 +15,8 @@ function RenRen(){
   var contenturl='http://status.renren.com/GetSomeomeDoingList.do?userId='+pageid+'&curpage=0';
   var confFile=__dirname+'/conf.json';
   var conf = pubfunc.readjsonsync(confFile);
-  var accountInfo;//zhang hao xinxi
+  var accountFile=__dirname+'/account.json';
+  var accountInfo= pubfunc.readjsonsync(accountFile);
 
   if(pubfunc.isDebug()){
     delete conf.maxid;
@@ -27,9 +28,7 @@ function RenRen(){
   }
 
   var updatelogin=function(callback){
-    var accountFile=__dirname+'/account.json';
-    var account = pubfunc.readjsonsync(accountFile);
-    Login.setAccount(account);
+    Login.setAccount(accountInfo);
     Login.onekeyLogin(function(err,info){
       if(err){
         console.warn(err);
@@ -130,46 +129,48 @@ function RenRen(){
 
   //增量抓取，与全量的差别是，这个是串行抓取。
   this.increDump=function(callback){
-    assert(accountInfo.logined);//必须先登录
-    var idx=0;//from 0
-    var baseid = conf.maxid;
-    if(pubfunc.isDebug()){
-      //debug时，减小id，避免dump不到新的数据
-      baseid -= 2000000;
-    }
-    assert(baseid > 0);//经过全量之后，maxid肯定不为0
-    var resultObject={};
-    var increGet = function(){
-      assert(idx < 100);//增量抓取，不可能出现这么多页。
-      getpageIcontent(idx,function(err,results){
-        assert.equal(null,err);
-        var dumpok = false;
-        //合并并且检查是否增量抓取完毕
-        for(var id in results){
-          if(results.hasOwnProperty(id)){
-            if(id <= baseid){
-              //遇到比baseid小的，说明抓取完毕
-              dumpok = true;
-            }else{
-              //合入总的结果
-              resultObject[id]=results[id];
+    updatelogin(function(){
+      assert(accountInfo.logined);//必须先登录
+      var idx=0;//from 0
+      var baseid = conf.maxid;
+      if(pubfunc.isDebug()){
+        //debug时，减小id，避免dump不到新的数据
+        baseid -= 2000000;
+      }
+      assert(baseid > 0);//经过全量之后，maxid肯定不为0
+      var resultObject={};
+      var increGet = function(){
+        assert(idx < 100);//增量抓取，不可能出现这么多页。
+        getpageIcontent(idx,function(err,results){
+          assert.equal(null,err);
+          var dumpok = false;
+          //合并并且检查是否增量抓取完毕
+          for(var id in results){
+            if(results.hasOwnProperty(id)){
+              if(id <= baseid){
+                //遇到比baseid小的，说明抓取完毕
+                dumpok = true;
+              }else{
+                //合入总的结果
+                resultObject[id]=results[id];
+              }
             }
           }
-        }
-        if(dumpok){
-          if(Object.keys(resultObject).length > 0){
-            pubfunc.writejson(confFile,conf);
+          if(dumpok){
+            if(Object.keys(resultObject).length > 0){
+              pubfunc.writejson(confFile,conf);
+            }
+            //incre dump complete,回调出去
+            return callback(null,resultObject);
           }
-          //incre dump complete,回调出去
-          return callback(null,resultObject);
-        }
 
-        idx++;  //没抓取完就继续抓下一页
-        //调用自身
-        increGet();
-      });
-    }
-    increGet();
+          idx++;  //没抓取完就继续抓下一页
+          //调用自身
+          increGet();
+        });
+      }
+      increGet();
+    });
   };
 
 }

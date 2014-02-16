@@ -102,10 +102,12 @@ var ColloectorGuy = function(){
         storeNodes(theColl.keystr,info,callbackEach); //函数永不报错，这里的callback传出去也必然不报错
 
       });
-    },callbackfn);
-
-    //定时执行
-    setTimeout(increDumpAll,20*1000,noop);
+    },function(err){
+      //定时执行
+      setTimeout(increDumpAll,20*1000,noop);
+      callbackfn(err);
+    });
+    
   }
 
   this.collect = function(){
